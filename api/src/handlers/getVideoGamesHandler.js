@@ -1,14 +1,32 @@
 const {Videogame} = require('../db')
-
-const getVideogamesHandler = async (req, res) => {
+const getAllVideoGamescontrollers =require('../controllers/getAllVideoGamesController')
+const getVideoGamesHandler = async (req, res) => {
     try {
-      // Consultar todos los videojuegos desde la base de datos
-      const videogames = await Videogame.findAll();
+
+      const result = await getAllVideoGamescontrollers();
   
-      // Enviar la respuesta en formato JSON
-      res.status(200).json(videogames);
+      res.status(200).json(result);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
   };
-  module.exports = getVideogamesHandler;
+  const postVideoGameCreate =  async (req, res) => {
+    const { name, description, platforms, image, releaseDate, rating } = req.body;
+    try {
+      const newVideogame = await Videogame.create({
+        name,
+        description,
+        platforms,
+        image,
+        releaseDate,
+        rating,
+      });
+      res.status(200).json(newVideogame);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+  };
+  module.exports = {
+    postVideoGameCreate,
+    getVideoGamesHandler,
+  };

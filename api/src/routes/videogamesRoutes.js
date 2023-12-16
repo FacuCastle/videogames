@@ -1,7 +1,7 @@
 const { Router } = require("express");
-
+const getVideogamesHandler =require('../handlers/getVideoGamesHandler')
 const videogamesRouter = Router();
 
-videogamesRouter.get('/videogames');
-videogamesRouter.get('/videogames/:idVideogame');
-videogamesRouter.post('/videogames');
+videogamesRouter.get('/videogames', getVideogamesHandler);
+videogamesRouter.get('/videogames/:idVideogame',);
+videogamesRouter.post('/videogames',);
