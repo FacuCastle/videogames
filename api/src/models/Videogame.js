@@ -10,16 +10,16 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    slug: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    platform: {
-      type: DataTypes.STRING, // Puedes considerar usar DataTypes.ARRAY(DataTypes.STRING) si un juego puede estar en múltiples plataformas
+    platforms: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     image: {
@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL, 
       allowNull: false,
     },
-  },{freezeTableName: true}
+  },
   )};
   
  

@@ -1,28 +1,32 @@
 const axios = require('axios');
 require('dotenv').config();
- const {apiKey} = process.env.APY_KEY;
+const apiKey = process.env.API_KEY;
+const { Videogame, Genre } =require('../db')
 
-const getVideoGamesById = async (req, res) => {
-    const { idVideogame } = req.params;
-
+const getGamesByIdController = async (id) => {
     try {
-     
+      let videogame = await Videogame.findByPk(id, {
+            include: [Genre] 
+        });
+
+      if(!videogame) {
+        
       const gameId = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?api_key=${apiKey}`);
+      
       const videogameFromApi = gameId.data;
 
-    
-      const genreId = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?api_key=${apiKey}`);
-      const genreFromApi = genreId.data.genres; 
+      const genreFromApi = videogameFromApi.genres; 
 
- 
-      const result = {
-        ...videogameFromApi,
-        genres: genreFromApi,
+       videogame = {
+        ...dataFromApi,
+        genres: genreFromApi
       };
+      }
+ 
 
-      res.status(200).json(result);
+      res.status(200).json(videogame);
     }catch (error) {
         res.status(400).json({ error: error.message });
     }
   }
-  module.exports = getVideoGamesById
+  module.exports = getGamesByIdController;

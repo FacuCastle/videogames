@@ -1,9 +1,9 @@
-const getVideoGamesById = require('../controllers/getVideogamesbyIdController')
+const getGamesByIdController = require('../controllers/getVideogamesbyIdController')
 
 const getVideoGamesByID = async (req, res) => {
     const { id } = req.params;
     try {
-      const videogame = await getVideoGamesById(id);
+      const videogame = await getGamesByIdController(id);
       if (!videogame) {
         return res.status(404).json({ error: 'Videojuego no encontrado' });
       }

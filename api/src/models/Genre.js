@@ -13,5 +13,5 @@ sequelize.define('genre', {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  },{freezeTableName: true})}
+  },)}
   
